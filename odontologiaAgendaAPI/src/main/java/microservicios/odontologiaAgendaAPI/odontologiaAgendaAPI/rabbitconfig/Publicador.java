@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
-import microservicios.odontologiaAgendaAPI.odontologiaAgendaAPI.modelo.Cita;
+import microservicios.odontologia.modelo.Cita;
 
 import java.util.concurrent.CompletableFuture;
 

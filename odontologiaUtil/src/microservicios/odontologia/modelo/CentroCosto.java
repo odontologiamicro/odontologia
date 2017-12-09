@@ -1,4 +1,4 @@
-package microservicios.odontologiaFacturaAPI.odontologiaFacturaAPI.modelo;
+package microservicios.odontologia.modelo;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -143,4 +143,5 @@ public class CentroCosto {
     return o.toString().replace("\n", "\n    ");
   }
 }
+
 

@@ -1,9 +1,11 @@
-package microservicios.odontologiaAgendaAPI.odontologiaAgendaAPI.modelo;
+package microservicios.odontologia.modelo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import microservicios.odontologia.modelo.Cita;
 
 public class Agenda {
 	private static final String ID_MEDICO_ESPECIALISTA = "1000";

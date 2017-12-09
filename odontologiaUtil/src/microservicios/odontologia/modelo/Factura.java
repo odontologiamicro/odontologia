@@ -1,4 +1,4 @@
-package microservicios.odontologiaFacturaAPI.odontologiaFacturaAPI.modelo;
+package microservicios.odontologia.modelo;
 
 import java.io.Serializable;
 
@@ -88,5 +88,7 @@ public class Factura implements Serializable {
 	public void setCentroCosto(String centroCosto) {
 		this.centroCosto = centroCosto;
 	}
+	
+	
 
 }

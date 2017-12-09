@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
-import microservicios.odontologiaFacturaAPI.odontologiaFacturaAPI.modelo.CentroCosto;
+import microservicios.odontologia.modelo.CentroCosto;
 
 @Service
 public class OdontologiaFacturaCentroCostoIntegracionService {
