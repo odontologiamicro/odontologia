@@ -14,8 +14,11 @@ public class Cita implements Serializable {
 	@JsonProperty("codigo")
 	String codigo;
 	
+	@JsonProperty("tipoCita")
+	int tipoCita;
+	
 	@JsonProperty("fecha")
-	String fecha;
+	String fecha; //AAAAMMDD
 	
 	@JsonProperty("medico")
 	Medico medico;
@@ -25,6 +28,9 @@ public class Cita implements Serializable {
 	
 	@JsonProperty("clinica")
 	String clinica;
+	
+	@JsonProperty("hora")
+	int hora; //de 7 a 17
 	
 	public String getCodigo() {
 		return codigo;
@@ -63,6 +69,22 @@ public class Cita implements Serializable {
 	
 	public void setClinica(String clinica) {
 		this.clinica = clinica;
+	}	
+	
+	public int getTipoCita() {
+		return tipoCita;
+	}
+
+	public void setTipoCita(int tipoCita) {
+		this.tipoCita = tipoCita;
+	}
+
+	public int getHora() {
+		return hora;
+	}
+
+	public void setHora(int hora) {
+		this.hora = hora;
 	}
 
 	@Override

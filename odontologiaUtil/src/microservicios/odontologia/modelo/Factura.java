@@ -2,93 +2,88 @@ package microservicios.odontologia.modelo;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import microservicios.odontologia.util.TipoCita;
+
 public class Factura implements Serializable {
-	
-	/**
-	 * 
-	 */
+		
 	private static final long serialVersionUID = 1L;
 	
-	String cita;
-	String valorCita;
-	String idPaciente;
-	String idMedico;
-	String tipoCita;
-	String centroCosto;
+	@JsonProperty("codigoCita")
+	String codigoCita;
 	
-	/**
-	 * @return the cita
-	 */
-	public String getCita() {
-		return cita;
+	@JsonProperty("valorCita")
+	String valorCita;
+	
+	@JsonProperty("pacienteFactura")
+	Paciente paciente;
+	
+	@JsonProperty("medicoFactura")
+	Medico medico;
+	
+	@JsonProperty("tipoCitaFactura")
+	TipoCita tipoCita;
+	
+	@JsonProperty("centroCosto")
+	CentroCosto centroCosto;
+	
+	@JsonProperty("fechaFactura")
+	String fecha; //AAAAMMDD
+
+	public String getCodigoCita() {
+		return codigoCita;
 	}
-	/**
-	 * @param cita the cita to set
-	 */
-	public void setCita(String cita) {
-		this.cita = cita;
+
+	public void setCodigoCita(String codigoCita) {
+		this.codigoCita = codigoCita;
 	}
-	/**
-	 * @return the valorCita
-	 */
+
 	public String getValorCita() {
 		return valorCita;
 	}
-	/**
-	 * @param valorCita the valorCita to set
-	 */
+
 	public void setValorCita(String valorCita) {
 		this.valorCita = valorCita;
 	}
-	/**
-	 * @return the idPaciente
-	 */
-	public String getIdPaciente() {
-		return idPaciente;
+
+	public Paciente getPaciente() {
+		return paciente;
 	}
-	/**
-	 * @param idPaciente the idPaciente to set
-	 */
-	public void setIdPaciente(String idPaciente) {
-		this.idPaciente = idPaciente;
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
 	}
-	/**
-	 * @return the idMedico
-	 */
-	public String getIdMedico() {
-		return idMedico;
+
+	public Medico getMedico() {
+		return medico;
 	}
-	/**
-	 * @param idMedico the idMedico to set
-	 */
-	public void setIdMedico(String idMedico) {
-		this.idMedico = idMedico;
+
+	public void setMedico(Medico medico) {
+		this.medico = medico;
 	}
-	/**
-	 * @return the tipoCita
-	 */
-	public String getTipoCita() {
+
+	public TipoCita getTipoCita() {
 		return tipoCita;
 	}
-	/**
-	 * @param tipoCita the tipoCita to set
-	 */
-	public void setTipoCita(String tipoCita) {
+
+	public void setTipoCita(TipoCita tipoCita) {
 		this.tipoCita = tipoCita;
 	}
-	/**
-	 * @return the centroCosto
-	 */
-	public String getCentroCosto() {
+
+	public CentroCosto getCentroCosto() {
 		return centroCosto;
 	}
-	/**
-	 * @param centroCosto the centroCosto to set
-	 */
-	public void setCentroCosto(String centroCosto) {
+
+	public void setCentroCosto(CentroCosto centroCosto) {
 		this.centroCosto = centroCosto;
 	}
-	
-	
 
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}	
 }

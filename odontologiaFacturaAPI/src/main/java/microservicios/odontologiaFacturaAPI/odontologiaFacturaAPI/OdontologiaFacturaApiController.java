@@ -8,18 +8,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import microservicios.odontologia.modelo.Cita;
 import microservicios.odontologia.modelo.Factura;
 import microservicios.odontologia.util.OdontologiaUtil;
+import microservicios.odontologia.util.PeticionFacturaDTO;
+import microservicios.odontologia.util.TipoConsulta;
 import microservicios.odontologiaFacturaAPI.odontologiaFacturaAPI.rabbitconf.Publicador;
 
 @RestController
 public class OdontologiaFacturaApiController {
 
-	Publicador publicador = new Publicador();	
-	
-	  @RequestMapping(method = RequestMethod.POST, value = "/factura")
-	  public ResponseEntity<Factura> crearRegalo(@RequestBody Factura factura) throws IOException{
-	    publicador.publicarMensajeAsnc("miroservicios.odontologia.citaagendada", "miroservicios.odontologia.citaagendada.facturarcita", OdontologiaUtil.serialize(factura));
+	Publicador publicador = new Publicador();	  
+	  
+	  @RequestMapping(method = RequestMethod.POST, value = "/consultarFactura")
+	  public ResponseEntity<Factura> consultarFactura(@RequestBody PeticionFacturaDTO consultaFactura) throws IOException{
+		  consultaFactura.setTipoConsulta(TipoConsulta.CONSULTAR_FACTURA);		  
+		  publicador.publicarMensajeAsnc("miroservicios.odontologia.citaagendada", "miroservicios.odontologia.citaagendada.consultarfactura", OdontologiaUtil.serialize(consultaFactura));
 	    return new ResponseEntity<Factura>(HttpStatus.OK);
 	  }
 }

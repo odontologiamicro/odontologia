@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import microservicios.odontologia.modelo.Factura;
 import microservicios.odontologia.util.OdontologiaUtil;
+import microservicios.odontologia.util.PeticionFacturaDTO;
+import microservicios.odontologia.util.TipoConsulta;
 
 @Component
 public class Consumidor implements MessageListener {
@@ -14,7 +16,18 @@ public class Consumidor implements MessageListener {
 	 @Override
 	  public void onMessage(Message message) {
 	    try {
-			System.out.println((Factura)OdontologiaUtil.deserialize(message.getBody()));
+	    	PeticionFacturaDTO peticionFacturaDTO = (PeticionFacturaDTO)OdontologiaUtil.deserialize(message.getBody());
+	    	switch (peticionFacturaDTO.getTipoConsulta()) {
+			case TipoConsulta.CONSULTAR_FACTURA:
+				System.out.println("Consultando factura cita: " + peticionFacturaDTO.getCita());
+				break;
+			case TipoConsulta.FACTURAR_CITA:
+				System.out.println("facturando cita: " + peticionFacturaDTO.getCita());
+				break;	
+			default:
+				break;
+			}
+	    				
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

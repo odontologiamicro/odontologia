@@ -24,7 +24,7 @@ public class RabbitConf {
 	  public SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
 	    SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
 	    container.setConnectionFactory(connectionFactory);
-	    container.setQueueNames("miroservicios.odontologia.facturacion.citafacturada");
+	    container.setQueueNames("miroservicios.odontologia.facturacion.citafacturada", "miroservicios.odontologia.facturacion.facturaconsultada");
 	    container.setMessageListener(new Consumidor());
 	    container.setAcknowledgeMode(AcknowledgeMode.AUTO);
 	    return container;
