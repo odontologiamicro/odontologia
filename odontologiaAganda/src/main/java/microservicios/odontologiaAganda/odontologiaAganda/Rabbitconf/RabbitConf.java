@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConf {
+	
+	static final String FIBO_CALCULATOR_REQUEST_QUEUE_NAME = "miroservicios.odontologia.agenda.citaconsultada";
+	
 	@Bean
 	  public ConnectionFactory connectionFactory(){
 	    CachingConnectionFactory connectionFactory = new CachingConnectionFactory("spider.rmq.cloudamqp.com");
@@ -20,14 +23,4 @@ public class RabbitConf {
 	    return connectionFactory;
 	  }
 
-	  @Bean
-	  public SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
-	    SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-	    container.setConnectionFactory(connectionFactory);
-	    container.setQueueNames("miroservicios.odontologia.agenda.citaagendada", 
-	    		"miroservicios.odontologia.agenda.citaconsultada");
-	    container.setMessageListener(new Consumidor());
-	    container.setAcknowledgeMode(AcknowledgeMode.AUTO);
-	    return container;
-	  }
 }
