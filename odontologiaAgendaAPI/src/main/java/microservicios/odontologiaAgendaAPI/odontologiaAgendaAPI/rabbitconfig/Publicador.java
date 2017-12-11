@@ -3,6 +3,7 @@ package microservicios.odontologiaAgendaAPI.odontologiaAgendaAPI.rabbitconfig;
 import static microservicios.odontologiaAgendaAPI.odontologiaAgendaAPI.rabbitconfig.RabbitConfig.FIBO_CALCULATOR_EXCHANGE_NAME;
 import static microservicios.odontologiaAgendaAPI.odontologiaAgendaAPI.rabbitconfig.RabbitConfig.FIBO_CALCULATOR_ROUTING_KEY_NAME;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Random;
 
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import microservicios.odontologia.modelo.Paciente;
+import microservicios.odontologia.util.OdontologiaUtil;
 import microservicios.odontologia.util.PeticionAgendaDTO;
 
 @Component
@@ -32,7 +34,7 @@ public class Publicador {
     public Publicador() {
     }
 
-    public void send() {
+    public void send() throws IOException {
         int number = new Random().nextInt(45);
         PeticionAgendaDTO pAgendaDTO = new PeticionAgendaDTO();
         pAgendaDTO.setTipoConsulta(2);
@@ -43,21 +45,21 @@ public class Publicador {
         MessageProperties messageProperties = new MessageProperties();
 	    	messageProperties.setCorrelationIdString(String.valueOf(pAgendaDTO.getPaciente().getId()) + new Date() );
 
-        AsyncRabbitTemplate.RabbitConverterFuture<String> future =
+        AsyncRabbitTemplate.RabbitConverterFuture<Object> future =
                 asyncRabbitTemplate.convertSendAndReceive(FIBO_CALCULATOR_EXCHANGE_NAME, FIBO_CALCULATOR_ROUTING_KEY_NAME, 
-                		new Message(pAgendaDTO.toString().getBytes(),
+                		new Message(OdontologiaUtil.serialize(pAgendaDTO),
     							messageProperties));
-        log.info("Thread: '{}' calc fibonacci for number '{}'", Thread.currentThread().getName(), pAgendaDTO.getPaciente().getId());
+        log.info("Thread Require -->: '{}' calc fibonacci for number '{}'", Thread.currentThread().getName(), pAgendaDTO.getPaciente().getId());
 
-        future.addCallback(new ListenableFutureCallback<String>() {
+        future.addCallback(new ListenableFutureCallback<Object>() {
             @Override
             public void onFailure(Throwable throwable) {
                 throwable.printStackTrace();
             }
 
             @Override
-            public void onSuccess(String result) {
-                log.info("Thread: '{}' result: '{}'", Thread.currentThread().getName(), result);
+            public void onSuccess(Object result) {
+                log.info("RESPONSE REQUIRED --->: '{}' result: '{}'", Thread.currentThread().getName(), result);
             }
         });
 

@@ -24,7 +24,7 @@ private Logger log = LoggerFactory.getLogger(Consumidor.class);
 	
     @RabbitListener(queues = RabbitConf.FIBO_CALCULATOR_REQUEST_QUEUE_NAME)
     public Message process(@Payload Message request) {
-        log.info("Received '{}'", request);
+        log.info("Received ---> '{}'", request);
         PeticionAgendaDTO dto = new PeticionAgendaDTO();
         dto.setCita(new Cita());
         MessageProperties messageProperties = new MessageProperties();
