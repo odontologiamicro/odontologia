@@ -12,7 +12,7 @@ public class Cita implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@JsonProperty("codigo")
-	String codigo;
+	String codigo = "";
 	
 	@JsonProperty("tipoCita")
 	int tipoCita;
@@ -83,7 +83,7 @@ public class Cita implements Serializable {
 		return hora;
 	}
 
-	public void setHora(int hora) {
+	public void setHora(int hora) {		
 		this.hora = hora;
 	}
 

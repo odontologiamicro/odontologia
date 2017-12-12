@@ -2,8 +2,6 @@ package microservicios.odontologiaAgendaAPI.odontologiaAgendaAPI;
 
 import java.io.IOException;
 import java.util.List;
-
-import org.springframework.amqp.rabbit.AsyncRabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +13,7 @@ import microservicios.odontologia.modelo.Cita;
 import microservicios.odontologia.util.PeticionAgendaDTO;
 import microservicios.odontologia.util.TipoConsulta;
 import microservicios.odontologiaAgendaAPI.odontologiaAgendaAPI.rabbitconfig.Publicador;
+import static microservicios.odontologiaAgendaAPI.odontologiaAgendaAPI.rabbitconfig.RabbitConfig.ROUTING_KEY_NAME;
 
 @RestController
 public class OdontologiaAgendaAPIContoller {
@@ -24,15 +23,14 @@ public class OdontologiaAgendaAPIContoller {
 	  @RequestMapping(method = RequestMethod.POST, value = "/citaPorMedico")
 	  public ResponseEntity<List<Cita>> consultarCitaPorMedico(@RequestBody PeticionAgendaDTO consultaPorMedico) throws IOException{		  
 		  consultaPorMedico.setTipoConsulta(TipoConsulta.CONSULTAR_CITA_POR_MEDICO);
-//		  publicador.send("miroservicios.odontologia.citaagendada", "miroservicios.odontologia.citaagendada.consultarcita", consultaPorMedico);
-		  publicador.send();
+		  publicador.send(ROUTING_KEY_NAME, consultaPorMedico);
 		  return new ResponseEntity<List<Cita>>(HttpStatus.OK);
 	  }
 	  
 	  @RequestMapping(method = RequestMethod.POST, value = "/citaPorPaciente")
 	  public ResponseEntity<List<Cita>> consultarCitaPorPaciente(@RequestBody PeticionAgendaDTO consultaPorPaciente) throws IOException{
 		  consultaPorPaciente.setTipoConsulta(TipoConsulta.CONSULTAR_CITA_POR_PACIENTE);
-//		  publicador.send("miroservicios.odontologia.citaagendada", "miroservicios.odontologia.citaagendada.consultarcita", consultaPorPaciente);
+		  publicador.send(ROUTING_KEY_NAME, consultaPorPaciente);
 	    return new ResponseEntity<List<Cita>>(HttpStatus.OK);
 	  }
 }

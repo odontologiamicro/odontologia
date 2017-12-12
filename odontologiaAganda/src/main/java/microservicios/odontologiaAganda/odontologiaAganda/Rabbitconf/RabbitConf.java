@@ -1,16 +1,15 @@
 package microservicios.odontologiaAganda.odontologiaAganda.Rabbitconf;
 
-import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConf {
 	
-	static final String FIBO_CALCULATOR_REQUEST_QUEUE_NAME = "miroservicios.odontologia.agenda.citaconsultada";
+	static final String REQUEST_QUEUE_AGENDAR_NAME = "miroservicios.odontologia.agenda.citaagendada";
+	static final String REQUEST_QUEUE_CONSULTAR_NAME = "miroservicios.odontologia.agenda.citaconsultada";
 	
 	@Bean
 	  public ConnectionFactory connectionFactory(){
