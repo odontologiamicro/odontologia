@@ -21,9 +21,9 @@ public class OdontologiaAgendaAPIContoller {
 	
 	  @RequestMapping(method = RequestMethod.POST, value = "/agendarCita")
 	  public ResponseEntity<Cita> agendarCita(@RequestBody PeticionAgendaDTO agendaCita) throws IOException{
-		  agendaCita.setTipoConsulta(TipoConsulta.AGENDAR_CITA);		  
-	    publicador.send(ROUTING_KEY_CREATE_NAME, agendaCita);
-	    return new ResponseEntity<Cita>(HttpStatus.OK);
+		  agendaCita.setTipoConsulta(TipoConsulta.AGENDAR_CITA);
+		  publicador.send(ROUTING_KEY_CREATE_NAME, agendaCita);
+		  return new ResponseEntity<Cita>(HttpStatus.OK);
 	  }
 	  
 	  @RequestMapping(method = RequestMethod.POST, value = "/consultarCita")

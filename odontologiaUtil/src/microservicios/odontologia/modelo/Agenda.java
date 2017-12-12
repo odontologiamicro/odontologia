@@ -9,11 +9,11 @@ import java.util.concurrent.ConcurrentMap;
 import microservicios.odontologia.modelo.Cita;
 
 public class Agenda {
-	private static final String ID_MEDICO_ESPECIALISTA = "1000";
-	private static final String ID_MEDICO_GENERAL = "1001";
+	private static final long ID_MEDICO_ESPECIALISTA = 1000;
+	private static final long ID_MEDICO_GENERAL = 1001;
 	
-	private static ConcurrentMap<String, List<Cita>> citasPorMedico;
-	private static ConcurrentMap<String, List<Cita>> citasPorPaciente;
+	private static ConcurrentMap<Long, List<Cita>> citasPorMedico;
+	private static ConcurrentMap<Long, List<Cita>> citasPorPaciente;
 	
 	public static void inicializar() {
 		citasPorMedico = new ConcurrentHashMap<>();
@@ -24,10 +24,13 @@ public class Agenda {
 	}
 	
 	public static Cita crearCita(Cita cita) {		
-		if (ID_MEDICO_ESPECIALISTA.equals(cita.getMedico().getId()) ||
-				ID_MEDICO_GENERAL.equals(cita.getMedico().getId())) {
+		if (ID_MEDICO_ESPECIALISTA == cita.getMedico().getId() ||
+				ID_MEDICO_GENERAL == cita.getMedico().getId()) {
 			boolean citaDisponible = true;
 			List<Cita> citasDelMedico = citasPorMedico.get(cita.getMedico().getId());
+			if (!citasPorPaciente.containsKey(cita.getPaciente().getId())) {
+				citasPorPaciente.put(cita.getPaciente().getId(), new ArrayList<Cita>());
+			}
 			List<Cita> citasDelPaciente = citasPorPaciente.get(cita.getPaciente().getId());
 			
 			for (Cita c: citasDelMedico) {
