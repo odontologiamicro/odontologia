@@ -10,25 +10,56 @@ public class PeticionFacturaDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@JsonProperty("citaFactura")
-	Cita cita;
+	@JsonProperty("idPaciente")
+	String idPaciente;
 	
-	@JsonProperty("tipoConsultaFactura")
-	int tipoConsulta;
+	@JsonProperty("idMedico")
+	String idMedico;
+	
+	@JsonProperty("fechaCita")
+	String fechaCita;
 
-	public Cita getCita() {
-		return cita;
+	/**
+	 * @return the idPaciente
+	 */
+	public String getIdPaciente() {
+		return idPaciente;
 	}
 
-	public void setCita(Cita cita) {
-		this.cita = cita;
+	/**
+	 * @param idPaciente the idPaciente to set
+	 */
+	public void setIdPaciente(String idPaciente) {
+		this.idPaciente = idPaciente;
 	}
 
-	public int getTipoConsulta() {
-		return tipoConsulta;
+	/**
+	 * @return the idMedico
+	 */
+	public String getIdMedico() {
+		return idMedico;
 	}
 
-	public void setTipoConsulta(int tipoConsulta) {
-		this.tipoConsulta = tipoConsulta;
-	}	
+	/**
+	 * @param idMedico the idMedico to set
+	 */
+	public void setIdMedico(String idMedico) {
+		this.idMedico = idMedico;
+	}
+
+	/**
+	 * @return the fechaCita
+	 */
+	public String getFechaCita() {
+		return fechaCita;
+	}
+
+	/**
+	 * @param fechaCita the fechaCita to set
+	 */
+	public void setFechaCita(String fechaCita) {
+		this.fechaCita = fechaCita;
+	}
+
+	
 }

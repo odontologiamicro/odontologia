@@ -14,7 +14,7 @@ public class Factura implements Serializable {
 	String codigoCita;
 	
 	@JsonProperty("valorCita")
-	String valorCita;
+	double valorCita;
 	
 	@JsonProperty("pacienteFactura")
 	Paciente paciente;
@@ -23,7 +23,7 @@ public class Factura implements Serializable {
 	Medico medico;
 	
 	@JsonProperty("tipoCitaFactura")
-	TipoCita tipoCita;
+	int tipoCita;
 	
 	@JsonProperty("centroCosto")
 	CentroCosto centroCosto;
@@ -39,11 +39,11 @@ public class Factura implements Serializable {
 		this.codigoCita = codigoCita;
 	}
 
-	public String getValorCita() {
+	public double getValorCita() {
 		return valorCita;
 	}
 
-	public void setValorCita(String valorCita) {
+	public void setValorCita(double valorCita) {
 		this.valorCita = valorCita;
 	}
 
@@ -63,11 +63,11 @@ public class Factura implements Serializable {
 		this.medico = medico;
 	}
 
-	public TipoCita getTipoCita() {
+	public int getTipoCita() {
 		return tipoCita;
 	}
 
-	public void setTipoCita(TipoCita tipoCita) {
+	public void setTipoCita(int tipoCita) {
 		this.tipoCita = tipoCita;
 	}
 

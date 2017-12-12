@@ -1,5 +1,6 @@
-package microservicios.odontologiaFactura.odontologiaFactura.rabbitconf;
+package microservicios.odontologiaFactura.odontologiaFactura;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import microservicios.odontologia.modelo.CentroCosto;
 @RestController
 public class OdontologiaFacturaCentroCostoIntegracionController {
 
+	@Autowired
 	private final OdontologiaFacturaCentroCostoIntegracionService myAppService;
 
     public OdontologiaFacturaCentroCostoIntegracionController(OdontologiaFacturaCentroCostoIntegracionService myAppService) {
@@ -20,7 +22,7 @@ public class OdontologiaFacturaCentroCostoIntegracionController {
     
     @RequestMapping(value = "/consultaCentroCosto/{idCentroCosto}", method = RequestMethod.GET)
     public CentroCosto getCentroCostoById(@PathVariable String idCentroCosto) {
-        return myAppService.getCentroCostoById("C001");
+        return myAppService.getCentroCostoById(idCentroCosto);
     }
     
 }

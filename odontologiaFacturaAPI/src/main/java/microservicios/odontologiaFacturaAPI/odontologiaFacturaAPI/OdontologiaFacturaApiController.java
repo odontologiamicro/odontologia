@@ -21,9 +21,8 @@ public class OdontologiaFacturaApiController {
 	Publicador publicador = new Publicador();	  
 	  
 	  @RequestMapping(method = RequestMethod.POST, value = "/consultarFactura")
-	  public ResponseEntity<Factura> consultarFactura(@RequestBody PeticionFacturaDTO consultaFactura) throws IOException{
-		  consultaFactura.setTipoConsulta(TipoConsulta.CONSULTAR_FACTURA);		  
-		  publicador.publicarMensajeAsnc("miroservicios.odontologia.citaagendada", "miroservicios.odontologia.citaagendada.consultarfactura", OdontologiaUtil.serialize(consultaFactura));
+	  public ResponseEntity<Factura> consultarFactura(@RequestBody PeticionFacturaDTO consultaFactura) throws IOException{		  
+		  publicador.send(consultaFactura);
 	    return new ResponseEntity<Factura>(HttpStatus.OK);
 	  }
 }
