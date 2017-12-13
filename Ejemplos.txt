@@ -1,0 +1,69 @@
+
+NOTA : En el aplicativo están configurados solo 2 medicos validos que son el 1000 y 1001
+
+localhost:1116/agendarCita
+{
+"citaConsulta":{
+  "tipoCita":"1",
+  "fecha":"2017-12-13",
+  "paciente":
+		{
+		  	"idPaciente":20000,
+			"nombrePaciente":"MostreteTres"
+		},
+	"medico":
+		  {
+		  	"idMedico":1000,
+			"nombreMedico":"Pepep"
+		},
+	"clinica":"UNA",
+	"hora": 18
+	}
+}
+
+localhost:1112/citaPorMedico
+{
+	"medicoConsulta":
+	  {
+	  	"idMedico":1000,
+		"nombreMedico":"Pepep"
+	}
+}
+
+localhost:1112/citaPorPaciente
+{
+	"pacienteConsulta":
+	  {
+	  	"idPaciente":20000,
+		"nombrePaciente":"Pepep"
+	}
+}
+
+localhost:1116/consultarCita
+{
+	"pacienteConsulta":
+	  {
+	  	"idPaciente":20000,
+		"nombrePaciente":"Pepep"
+	}
+}
+
+localhost:1113/consultarFactura
+
+{
+	"citaFacturada": {
+	    "codigo": "f4cc0cc1-336b-484d-99bd-fc57d2058ca9",
+	    "tipoCita": 1,
+	    "fecha": "2017-12-23",
+	    "medico": {
+	        "idMedico": 1000,
+	        "nombreMedico": "Pepep"
+	    },
+	    "paciente": {
+	        "idPaciente": 20000,
+	        "nombrePaciente": "MostreteTres"
+	    },
+	    "clinica": "UNA",
+	    "hora": 18
+	}
+}
