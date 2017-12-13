@@ -1,6 +1,5 @@
 package microservicios.odontologiaFactura.odontologiaFactura;
 
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

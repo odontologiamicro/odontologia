@@ -4,14 +4,9 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageProperties;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import microservicios.odontologia.modelo.CentroCosto;
@@ -41,7 +36,6 @@ public class Consumidor implements ApplicationContextAware {
 
 
     public Factura handleMessage(byte[] request) {
-//        log.info("citaConsultada ---> '{}'", new String(request.getMessageProperties().getCorrelationId()));
         
     	PeticionFacturaDTO dtoFactura = new PeticionFacturaDTO();
 		try {

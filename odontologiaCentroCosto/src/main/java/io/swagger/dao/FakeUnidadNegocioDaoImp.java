@@ -6,7 +6,6 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import io.swagger.model.CentroCosto;
 import io.swagger.model.UnidadDeNegocio;
 
 @Repository

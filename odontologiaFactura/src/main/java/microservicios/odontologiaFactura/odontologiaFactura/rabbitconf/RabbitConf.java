@@ -33,14 +33,5 @@ public class RabbitConf {
 		container.setMessageListener(new MessageListenerAdapter(new Consumidor()));
 		return container;
 	}
-	
-//	@Bean
-//	public SimpleMessageListenerContainer serviceListenerContainerDos() {
-//		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-//		container.setConnectionFactory( connectionFactory() );
-//		container.setQueues( new Queue(QUEUE_CITA_FACTURADA) );
-//		container.setMessageListener(new MessageListenerAdapter(new ConsumidorDos()));
-//		return container;
-//	}
 
 }

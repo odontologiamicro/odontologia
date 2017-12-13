@@ -2,7 +2,6 @@ package io.swagger.dao;
 
 import java.util.Collection;
 
-import io.swagger.model.CentroCosto;
 import io.swagger.model.UnidadDeNegocio;
 
 public interface UnidadNegocioDAO {

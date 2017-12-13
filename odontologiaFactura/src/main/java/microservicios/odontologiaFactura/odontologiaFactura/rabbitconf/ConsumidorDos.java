@@ -2,19 +2,11 @@ package microservicios.odontologiaFactura.odontologiaFactura.rabbitconf;
 
 import java.io.IOException;
 
-import javax.annotation.Resource;
-
-import org.apache.commons.configuration.beanutils.BeanFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import microservicios.odontologia.modelo.CentroCosto;
