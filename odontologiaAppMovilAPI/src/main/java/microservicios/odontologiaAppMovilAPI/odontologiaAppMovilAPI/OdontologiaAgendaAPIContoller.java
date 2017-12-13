@@ -2,9 +2,6 @@ package microservicios.odontologiaAppMovilAPI.odontologiaAppMovilAPI;
 
 import java.io.IOException;
 import java.util.List;
-
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import microservicios.odontologia.modelo.Cita;
-import microservicios.odontologia.util.OdontologiaUtil;
 import microservicios.odontologia.util.PeticionAgendaDTO;
 import microservicios.odontologia.util.PeticionFacturaDTO;
 import microservicios.odontologia.util.TipoConsulta;
