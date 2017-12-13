@@ -1,5 +1,6 @@
 package microservicios.odontologia.modelo;
 
+import java.io.Serializable;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -13,9 +14,14 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-12-07T03:36:42.350Z")
 
-public class CentroCosto {
+public class CentroCosto implements Serializable {
 	
-  @JsonProperty("idCentroCosto")
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+@JsonProperty("idCentroCosto")
   private String idCentroCosto = null;
 
   @JsonProperty("nombre")

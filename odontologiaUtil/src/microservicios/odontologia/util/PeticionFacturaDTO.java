@@ -6,60 +6,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import microservicios.odontologia.modelo.Cita;
 
+
 public class PeticionFacturaDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@JsonProperty("idPaciente")
-	String idPaciente;
-	
-	@JsonProperty("idMedico")
-	String idMedico;
-	
-	@JsonProperty("fechaCita")
-	String fechaCita;
+	@JsonProperty("citaFacturada")
+	private Cita cita;
 
-	/**
-	 * @return the idPaciente
-	 */
-	public String getIdPaciente() {
-		return idPaciente;
+	@JsonProperty("tipoPeticion")
+	private int tipoPeticion;
+
+	public int getTipoPeticion() {
+		return tipoPeticion;
 	}
 
-	/**
-	 * @param idPaciente the idPaciente to set
-	 */
-	public void setIdPaciente(String idPaciente) {
-		this.idPaciente = idPaciente;
+	public void setTipoPeticion(int tipoPeticion) {
+		this.tipoPeticion = tipoPeticion;
 	}
 
-	/**
-	 * @return the idMedico
-	 */
-	public String getIdMedico() {
-		return idMedico;
+	public Cita getCita() {
+		return cita;
 	}
 
-	/**
-	 * @param idMedico the idMedico to set
-	 */
-	public void setIdMedico(String idMedico) {
-		this.idMedico = idMedico;
+	public void setCita(Cita cita) {
+		this.cita = cita;
 	}
 
-	/**
-	 * @return the fechaCita
-	 */
-	public String getFechaCita() {
-		return fechaCita;
-	}
-
-	/**
-	 * @param fechaCita the fechaCita to set
-	 */
-	public void setFechaCita(String fechaCita) {
-		this.fechaCita = fechaCita;
-	}
-
-	
 }

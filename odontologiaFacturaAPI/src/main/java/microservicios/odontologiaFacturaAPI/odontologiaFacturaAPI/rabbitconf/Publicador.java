@@ -34,7 +34,7 @@ public class Publicador {
 	ApplicationContext cxt = new AnnotationConfigApplicationContext(RabbitConfig.class);
 	 RabbitTemplate rbt = cxt.getBean(RabbitTemplate.class);
    
-   public Factura publicarMensajeSnc(String routingK, String consultaFactura) throws AmqpException, IOException{
+   public Factura publicarMensajeSnc(String routingK, PeticionFacturaDTO consultaFactura) throws AmqpException, IOException{
 	   Factura convertSendAndReceive = (Factura)rbt.convertSendAndReceive(CITA_AGENDADA_EXCHANGE_NAME, routingK, OdontologiaUtil.serialize(consultaFactura));
 		return convertSendAndReceive;
    }

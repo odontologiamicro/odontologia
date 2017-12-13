@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import microservicios.odontologia.modelo.Cita;
 import microservicios.odontologia.util.OdontologiaUtil;
 import microservicios.odontologia.util.PeticionAgendaDTO;
+import microservicios.odontologia.util.PeticionFacturaDTO;
 import microservicios.odontologia.util.TipoConsulta;
 import microservicios.odontologiaAppMovilAPI.odontologiaAppMovilAPI.rabbitconfig.Publicador;
 import static microservicios.odontologiaAppMovilAPI.odontologiaAppMovilAPI.rabbitconfig.RabbitConfig.*;
@@ -29,10 +30,12 @@ public class OdontologiaAgendaAPIContoller {
 		  agendaCita.setTipoConsulta(TipoConsulta.AGENDAR_CITA);
 		  List<Cita> lstCita = publicador.publicarMensajeSnc(ROUTING_KEY_CREATE_NAME, agendaCita);
 		  
-		  Message msj = new Message(OdontologiaUtil.serialize(lstCita.get(0)), new MessageProperties());
+		  PeticionFacturaDTO dto = new PeticionFacturaDTO();
+		  dto.setCita(lstCita.get(0));
+		  dto.setTipoPeticion(TipoConsulta.FACTURAR_CITA);
 	        
 	        if( !"".equals( lstCita.get(0).getCodigo() )){
-	        	publicador.publicarMensajeAsnc(QUEUE_CITA_FACTURADA_ROUTING_KEY_NAME, msj);
+	        	publicador.publicarMensajeAsnc(QUEUE_CITA_FACTURADA_ROUTING_KEY_NAME, dto);
 			}
 		  return new ResponseEntity<Cita>(lstCita.get(0),  HttpStatus.OK);
 	  }

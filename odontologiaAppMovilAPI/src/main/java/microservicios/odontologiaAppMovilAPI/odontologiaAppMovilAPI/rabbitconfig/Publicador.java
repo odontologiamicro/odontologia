@@ -13,8 +13,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import microservicios.odontologia.modelo.Cita;
+import microservicios.odontologia.modelo.Factura;
 import microservicios.odontologia.util.OdontologiaUtil;
 import microservicios.odontologia.util.PeticionAgendaDTO;
+import microservicios.odontologia.util.PeticionFacturaDTO;
 
 import static microservicios.odontologiaAppMovilAPI.odontologiaAppMovilAPI.rabbitconfig.RabbitConfig.*;
 
@@ -34,8 +36,14 @@ public class Publicador {
 		return convertSendAndReceive;
     }
     
-    public void publicarMensajeAsnc(String routingK, Message mensaje){
-    	CompletableFuture.runAsync(()-> rbt.convertAndSend(EXCHANGE_NAME, routingK, mensaje));
+    public void publicarMensajeAsnc(String routingK, PeticionFacturaDTO mensaje){
+	
+		try {
+			rbt.convertSendAndReceive(EXCHANGE_NAME, routingK, OdontologiaUtil.serialize(mensaje));
+		} catch (AmqpException | IOException e) {
+			System.out.println("Error enviando mensaje");
+		}
+		
     }
     
 //    public void send(String rKey, PeticionAgendaDTO pAgendaDTO) throws IOException {

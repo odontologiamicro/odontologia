@@ -29,18 +29,18 @@ public class RabbitConf {
 	public SimpleMessageListenerContainer serviceListenerContainer() {
 		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
 		container.setConnectionFactory( connectionFactory() );
-		container.setQueues(new Queue(QUEUE_FACTURA_CONSULTADA) );
+		container.setQueues(new Queue(QUEUE_FACTURA_CONSULTADA), new Queue(QUEUE_CITA_FACTURADA) );
 		container.setMessageListener(new MessageListenerAdapter(new Consumidor()));
 		return container;
 	}
 	
-	@Bean
-	public SimpleMessageListenerContainer serviceListenerContainerDos() {
-		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-		container.setConnectionFactory( connectionFactory() );
-		container.setQueues( new Queue(QUEUE_CITA_FACTURADA) );
-		container.setMessageListener(new MessageListenerAdapter(new ConsumidorDos()));
-		return container;
-	}
+//	@Bean
+//	public SimpleMessageListenerContainer serviceListenerContainerDos() {
+//		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+//		container.setConnectionFactory( connectionFactory() );
+//		container.setQueues( new Queue(QUEUE_CITA_FACTURADA) );
+//		container.setMessageListener(new MessageListenerAdapter(new ConsumidorDos()));
+//		return container;
+//	}
 
 }

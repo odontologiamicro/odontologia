@@ -2,11 +2,18 @@ package microservicios.odontologiaFactura.odontologiaFactura.rabbitconf;
 
 import java.io.IOException;
 
+import javax.annotation.Resource;
+
+import org.apache.commons.configuration.beanutils.BeanFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
@@ -19,16 +26,28 @@ import microservicios.odontologiaFactura.odontologiaFactura.OdontologiaFacturaCe
 import microservicios.odontologiaFactura.odontologiaFactura.OdontologiaServicioFacturacion;
 
 @Component
-public class ConsumidorDos {
+public class ConsumidorDos implements ApplicationContextAware {
 
-	@Autowired
-	OdontologiaFacturaCentroCostoIntegracionService service;
+	
+    private static ApplicationContext context;
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        context = applicationContext;   
+    }
+
+    public static ApplicationContext getContext() {
+        return context;
+    }
+	
+	
 	
 	private Logger log = LoggerFactory.getLogger(ConsumidorDos.class);
 	
 //	@RabbitListener(queues = RabbitConf.QUEUE_CITA_FACTURADA)
     public void handleMessage(byte[] request) throws ClassNotFoundException, IOException {
 		Cita cita = (Cita) OdontologiaUtil.deserialize(request);
+		OdontologiaFacturaCentroCostoIntegracionService service = this.getContext().getBean(OdontologiaFacturaCentroCostoIntegracionService.class);
 		CentroCosto centro;
 		double valorCita;
 		switch (cita.getTipoCita()) {
