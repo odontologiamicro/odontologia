@@ -23,7 +23,8 @@ public class OdontologiaFacturaApiController {
 	Publicador publicador = new Publicador();	  
 	  
 	  @RequestMapping(method = RequestMethod.POST, value = "/consultarFactura")
-	  public ResponseEntity<Factura> consultarFactura(@RequestBody String codigoCita) throws IOException{		  
+	  public ResponseEntity<Factura> consultarFactura(@RequestBody PeticionFacturaDTO codigoCita) throws IOException{
+		  codigoCita.setTipoPeticion(TipoConsulta.CONSULTAR_FACTURA);
 		  Factura fact = publicador.publicarMensajeSnc(QUEUE_FACTURA_CONSULTADA_ROUTING_KEY_NAME, codigoCita);
 		 // publicador.send(consultaFactura);
 	    return new ResponseEntity<Factura>(fact, HttpStatus.OK);
