@@ -21,8 +21,8 @@ public class OdontologiaFacturaApiController {
 	Publicador publicador = new Publicador();	  
 	  
 	  @RequestMapping(method = RequestMethod.POST, value = "/consultarFactura")
-	  public ResponseEntity<Factura> consultarFactura(@RequestBody PeticionFacturaDTO consultaFactura) throws IOException{		  
-		  publicador.send(consultaFactura);
+	  public ResponseEntity<Factura> consultarFactura(@RequestBody String codigoCita) throws IOException{		  
+		  publicador.send(codigoCita);
 	    return new ResponseEntity<Factura>(HttpStatus.OK);
 	  }
 }

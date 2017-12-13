@@ -6,22 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
-import org.springframework.amqp.rabbit.AsyncRabbitTemplate;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
-
-import com.netflix.discovery.converters.Auto;
 
 import microservicios.odontologia.modelo.CentroCosto;
 import microservicios.odontologia.modelo.Cita;
 import microservicios.odontologia.modelo.Factura;
 import microservicios.odontologia.util.OdontologiaUtil;
-import microservicios.odontologia.util.PeticionAgendaDTO;
-import microservicios.odontologia.util.PeticionFacturaDTO;
 import microservicios.odontologia.util.TipoCita;
 import microservicios.odontologiaFactura.odontologiaFactura.OdontologiaFacturaCentroCostoIntegracionService;
 import microservicios.odontologiaFactura.odontologiaFactura.OdontologiaServicioFacturacion;
@@ -37,8 +30,7 @@ public class Consumidor {
 	@RabbitListener(queues = RabbitConf.QUEUE_FACTURA_CONSULTADA)
     public Message consultarFactura(@Payload Message request) throws ClassNotFoundException, IOException {
         log.info("citaConsultada ---> '{}'", new String(request.getMessageProperties().getCorrelationId()));
-        PeticionFacturaDTO dto = (PeticionFacturaDTO)OdontologiaUtil.deserialize(request.getBody());
-        String citaBuscada = dto.getIdPaciente() + "-" +dto.getIdMedico() + "-" + dto.getFechaCita();
+        String citaBuscada = new String(request.getBody());
         Factura factura = OdontologiaServicioFacturacion.getFactura(citaBuscada);
         MessageProperties messageProperties = new MessageProperties();
         messageProperties.setCorrelationId(request.getMessageProperties().getCorrelationId());
@@ -73,7 +65,7 @@ public class Consumidor {
 		factura.setTipoCita(cita.getTipoCita());
 		factura.setValorCita(valorCita);
 		
-		String claveFactura = cita.getPaciente().getId() + "-" +cita.getMedico().getId()+ "-" + cita.getFecha();
+		String claveFactura = cita.getCodigo();
 		OdontologiaServicioFacturacion.addFactura(claveFactura, factura);
         log.info("citaFacturada ---> '{}'", request);
     }

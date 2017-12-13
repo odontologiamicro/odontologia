@@ -35,18 +35,17 @@ public class Publicador {
     public Publicador() {
     }
 
-    public void send(PeticionFacturaDTO consultaFactura) throws IOException {
+    public void send(String codigoCita) throws IOException {
         
         MessageProperties messageProperties = new MessageProperties();
-        String correlationID = consultaFactura.getIdPaciente() + consultaFactura.getIdMedico() + consultaFactura.getFechaCita() + new Date();
+        String correlationID = codigoCita + new Date();
 	    	messageProperties.setCorrelationId(String.valueOf(correlationID).getBytes());
 
-        Message message = new Message(OdontologiaUtil.serialize(consultaFactura),
-					messageProperties);
+        Message message = new Message(codigoCita.getBytes(), messageProperties);
 		AsyncRabbitTemplate.RabbitConverterFuture<Object> future =
                 asyncRabbitTemplate.convertSendAndReceive(CITA_AGENDADA_EXCHANGE_NAME, QUEUE_FACTURA_CONSULTADA_ROUTING_KEY_NAME, 
                 		message);
-        log.info("Thread Require -->: '{}' messagefor '{}' correlationId '{}'", Thread.currentThread().getName(), consultaFactura.getIdPaciente(), new String(message.getMessageProperties().getCorrelationId()));
+        log.info("Thread Require -->: '{}' messagefor '{}' correlationId '{}'", Thread.currentThread().getName(), codigoCita, new String(message.getMessageProperties().getCorrelationId()));
 
         future.addCallback(new ListenableFutureCallback<Object>() {
             @Override
