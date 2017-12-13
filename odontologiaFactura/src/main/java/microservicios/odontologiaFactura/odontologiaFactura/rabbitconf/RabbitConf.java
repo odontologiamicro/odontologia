@@ -1,7 +1,10 @@
 package microservicios.odontologiaFactura.odontologiaFactura.rabbitconf;
 
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,5 +24,23 @@ public class RabbitConf {
 	    connectionFactory.setRequestedHeartBeat(30);
 	    return connectionFactory;
 	  }
+	
+	@Bean
+	public SimpleMessageListenerContainer serviceListenerContainer() {
+		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+		container.setConnectionFactory( connectionFactory() );
+		container.setQueues(new Queue(QUEUE_FACTURA_CONSULTADA) );
+		container.setMessageListener(new MessageListenerAdapter(new Consumidor()));
+		return container;
+	}
+	
+	@Bean
+	public SimpleMessageListenerContainer serviceListenerContainerDos() {
+		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+		container.setConnectionFactory( connectionFactory() );
+		container.setQueues( new Queue(QUEUE_CITA_FACTURADA) );
+		container.setMessageListener(new MessageListenerAdapter(new ConsumidorDos()));
+		return container;
+	}
 
 }

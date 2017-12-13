@@ -1,10 +1,12 @@
 package microservicios.odontologiaAganda.odontologiaAganda.Rabbitconf;
 
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.AsyncRabbitTemplate;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +17,6 @@ public class RabbitConf {
 	static final String REQUEST_QUEUE_AGENDAR_NAME = "miroservicios.odontologia.agenda.citaagendada";
 	static final String REQUEST_QUEUE_CONSULTAR_NAME = "miroservicios.odontologia.agenda.citaconsultada";
 	
-	@Autowired
-	private RabbitTemplate rabbitTemplate;
 	
 	@Bean
 	  public ConnectionFactory connectionFactory(){
@@ -30,9 +30,12 @@ public class RabbitConf {
 	  }
 	
 	@Bean
-	public RabbitTemplate rabbitTemplate() {
-		rabbitTemplate = new RabbitTemplate(connectionFactory());
-		return rabbitTemplate;
+	public SimpleMessageListenerContainer serviceListenerContainer() {
+		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+		container.setConnectionFactory( connectionFactory() );
+		container.setQueues(new Queue(REQUEST_QUEUE_AGENDAR_NAME), new Queue(REQUEST_QUEUE_CONSULTAR_NAME) );
+		container.setMessageListener(new MessageListenerAdapter(new Consumidor()));
+		return container;
 	}
 
 }

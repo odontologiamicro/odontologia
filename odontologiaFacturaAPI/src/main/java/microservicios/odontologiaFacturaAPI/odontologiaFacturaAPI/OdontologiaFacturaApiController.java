@@ -1,5 +1,7 @@
 package microservicios.odontologiaFacturaAPI.odontologiaFacturaAPI;
 
+import static microservicios.odontologiaFacturaAPI.odontologiaFacturaAPI.rabbitconf.RabbitConfig.*;
+
 import java.io.IOException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,8 @@ public class OdontologiaFacturaApiController {
 	  
 	  @RequestMapping(method = RequestMethod.POST, value = "/consultarFactura")
 	  public ResponseEntity<Factura> consultarFactura(@RequestBody String codigoCita) throws IOException{		  
-		  publicador.send(codigoCita);
-	    return new ResponseEntity<Factura>(HttpStatus.OK);
+		  Factura fact = publicador.publicarMensajeSnc(QUEUE_FACTURA_CONSULTADA_ROUTING_KEY_NAME, codigoCita);
+		 // publicador.send(consultaFactura);
+	    return new ResponseEntity<Factura>(fact, HttpStatus.OK);
 	  }
 }

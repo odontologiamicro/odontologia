@@ -1,5 +1,6 @@
 package microservicios.odontologiaAgendaAPI.odontologiaAgendaAPI.rabbitconfig;
 
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.AsyncRabbitTemplate;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -34,15 +35,9 @@ public class RabbitConfig {
 	  }
 
 	  @Bean
-	  public RabbitTemplate rabbitTemplate(){
-		rabbitTemplate = new RabbitTemplate(connectionFactory());
-	    return rabbitTemplate;
-	  }
-	  
-	  @Bean
-	  public AsyncRabbitTemplate template() {
-		  SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(connectionFactory());
-	      container.setQueueNames(REPLY_QUEUE_NAME);
-	      return new AsyncRabbitTemplate(rabbitTemplate(), container);
-	  }
+		public RabbitTemplate rabbitTemplate() {
+		  rabbitTemplate = new RabbitTemplate(connectionFactory());
+		  return rabbitTemplate;
+		}
+
 }

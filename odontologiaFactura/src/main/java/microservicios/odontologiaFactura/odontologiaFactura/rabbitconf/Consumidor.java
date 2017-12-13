@@ -22,52 +22,20 @@ import microservicios.odontologiaFactura.odontologiaFactura.OdontologiaServicioF
 @Component
 public class Consumidor {
 	
-	@Autowired
-	OdontologiaFacturaCentroCostoIntegracionService service;
-	
 	private Logger log = LoggerFactory.getLogger(Consumidor.class);
 	
-	@RabbitListener(queues = RabbitConf.QUEUE_FACTURA_CONSULTADA)
-    public Message consultarFactura(@Payload Message request) throws ClassNotFoundException, IOException {
-        log.info("citaConsultada ---> '{}'", new String(request.getMessageProperties().getCorrelationId()));
-        String citaBuscada = new String(request.getBody());
+//	@RabbitListener(queues = RabbitConf.QUEUE_FACTURA_CONSULTADA)
+    public Factura handleMessage(byte[] request) throws ClassNotFoundException, IOException {
+//        log.info("citaConsultada ---> '{}'", new String(request.getMessageProperties().getCorrelationId()));
+        String citaBuscada = new String(request);
         Factura factura = OdontologiaServicioFacturacion.getFactura(citaBuscada);
-        MessageProperties messageProperties = new MessageProperties();
-        messageProperties.setCorrelationId(request.getMessageProperties().getCorrelationId());
-    		messageProperties.setCorrelationIdString(request.getMessageProperties().getCorrelationIdString());
-    		Message msj = new Message(OdontologiaUtil.serialize(factura),
-					messageProperties);
-        return msj;
+//        MessageProperties messageProperties = new MessageProperties();
+//        messageProperties.setCorrelationId(request.getMessageProperties().getCorrelationId());
+//    		messageProperties.setCorrelationIdString(request.getMessageProperties().getCorrelationIdString());
+//    		Message msj = new Message(OdontologiaUtil.serialize(factura),
+//					messageProperties);
+        return factura;
     }
 	
-	@RabbitListener(queues = RabbitConf.QUEUE_CITA_FACTURADA)
-    public void facturarCita(@Payload Message request) throws ClassNotFoundException, IOException {
-		Cita cita = (Cita) OdontologiaUtil.deserialize(request.getBody());
-		CentroCosto centro;
-		double valorCita;
-		switch (cita.getTipoCita()) {
-		case TipoCita.CITA_CON_ESPECIALISTA:
-			centro = service.getCentroCostoById("C001");
-			valorCita = 30000;
-			break;
-
-		default:
-			centro = service.getCentroCostoById("C002");
-			valorCita = 10000;
-			break;
-		}
-		Factura factura = new Factura();
-		factura.setCentroCosto(centro);
-		factura.setCodigoCita(cita.getCodigo());
-		factura.setFecha(cita.getFecha());
-		factura.setMedico(cita.getMedico());
-		factura.setPaciente(cita.getPaciente());
-		factura.setTipoCita(cita.getTipoCita());
-		factura.setValorCita(valorCita);
-		
-		String claveFactura = cita.getCodigo();
-		OdontologiaServicioFacturacion.addFactura(claveFactura, factura);
-        log.info("citaFacturada ---> '{}'", request);
-    }
-
+	
 }

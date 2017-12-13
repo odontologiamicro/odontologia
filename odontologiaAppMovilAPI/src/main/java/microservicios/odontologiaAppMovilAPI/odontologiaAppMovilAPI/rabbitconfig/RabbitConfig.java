@@ -1,5 +1,6 @@
 package microservicios.odontologiaAppMovilAPI.odontologiaAppMovilAPI.rabbitconfig;
 
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.AsyncRabbitTemplate;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -35,18 +36,9 @@ public class RabbitConfig {
 	    return connectionFactory;
 	  }
 
-	  @Bean
-	  public RabbitTemplate rabbitTemplate(){
-		rabbitTemplate = new RabbitTemplate(connectionFactory());
-		rabbitTemplate.setReplyTimeout(60000);
-		rabbitTemplate.setReceiveTimeout(60000);
-	    return rabbitTemplate;
-	  }
-	  
-	  @Bean
-	  public AsyncRabbitTemplate template() {
-		  SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(connectionFactory());
-	      container.setQueueNames(REPLY_QUEUE_NAME);
-	      return new AsyncRabbitTemplate(rabbitTemplate(), container);
-	  }	
+	    @Bean
+		public RabbitTemplate rabbitTemplate() {
+		  rabbitTemplate = new RabbitTemplate(connectionFactory());
+		  return rabbitTemplate;
+		}
 }
